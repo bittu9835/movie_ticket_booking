@@ -9,6 +9,12 @@ const routes = [
     component: () => import('@/pages/Home.vue'),
   },
   {
+    name: 'MovieDetail',
+    path: '/movies/:movieName',
+    component: () => import('@/pages/MovieDetail.vue'),
+    props:true
+  },
+  {
     name: 'Login',
     path: '/account/login',
     component: () => import('@/pages/Login.vue'),
