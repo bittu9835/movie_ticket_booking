@@ -1,7 +1,13 @@
 <template>
     <div v-if="!movieResource.loading && movieResource.doc" class="sm:px-28 sm:py:8 p-8">
-        <div>
-            <p class="text-3xl font-bold text-gray-800">{{ movieDoc.title }}</p>
+        <div class="flex flex-row items-center justify-between">
+            <div class="flex items-center space-x-4 truncate">
+                <router-link to="/" v-if="currentStep === 0">
+                    <i class="fas fa-arrow-left text-2xl"></i>
+                </router-link>
+                <p class="text-3xl font-bold text-gray-800">{{ movieDoc.title }}</p>
+            </div>
+            <Avatar :shape="'circle'" :image="null" :label="session.user" size="lg" class="cursor-pointer"/>
         </div>
         <div class="flex justify-between mt-10 mb-10">
             <div>
@@ -81,7 +87,9 @@
 <script setup>
 // import poster from '@/assets/img/avatar.jpeg';
 import { ref, reactive, computed } from 'vue';
-import { createDocumentResource, createListResource } from 'frappe-ui';
+import { createDocumentResource, createListResource ,Avatar} from 'frappe-ui';
+import { session } from '@/data/session'
+import '@fortawesome/fontawesome-free/css/all.css';
 
 const props = defineProps({
     movieName: {
