@@ -6,6 +6,8 @@
  "doctype": "DocType",
  "engine": "InnoDB",
  "field_order": [
+  "number_of_sheets",
+  "seat_column",
   "address"
  ],
  "fields": [
@@ -13,6 +15,19 @@
    "fieldname": "address",
    "fieldtype": "Small Text",
    "label": "Address"
+  },
+  {
+   "fieldname": "number_of_sheets",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Number of Seats",
+   "reqd": 1
+  },
+  {
+   "fieldname": "seat_column",
+   "fieldtype": "JSON",
+   "in_list_view": 1,
+   "label": "Seat_column"
   }
  ],
  "index_web_pages_for_search": 1,
@@ -22,7 +37,7 @@
    "link_fieldname": "theater"
   }
  ],
- "modified": "2023-12-21 11:55:22.698255",
+ "modified": "2023-12-25 19:24:55.748337",
  "modified_by": "Administrator",
  "module": "Movie Ticket Booking",
  "name": "Movie Theater",

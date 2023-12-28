@@ -2,8 +2,14 @@
     <div v-if="movies.data" class="p-4">
         <div class="flex flex-row items-center justify-between mb-9">
             <h2 class="font-bold ">Movie List</h2>
-            <Avatar :shape="'circle'" :image="null" :label="session.user" size="lg" class="cursor-pointer" />
-            <Dropdown :options="dropdownOptions" />
+            <Dropdown :options="options">
+                <Button class="rounded-full w-10 h-10">
+                    <template #icon>
+                        <Avatar :shape="'circle'" :image="null" :label="session.user" size="lg" class="cursor-pointer" />
+                    </template>
+                </Button>
+            </Dropdown>
+
         </div>
 
         <div
@@ -34,25 +40,17 @@ const movies = createListResource({
     fields: ['name', 'title', 'release_date', 'director', 'poster'],
     auto: true
 })
-
-dropdownOptions: [
+let options = [
     {
-        label: 'Edit Title',
-        onClick: () => {
-        },
-        icon: () => h(FeatherIcon, { name: 'edit-2' }),
+        label: 'Profile',
+        icon: () => h(FeatherIcon, { name: "user" }),
     },
     {
-        label: 'Manage Members',
+        label: 'Log Out',
         onClick: () => {
+            session.logout.submit()
         },
-        icon: () => h(FeatherIcon, { name: 'users' }),
-    },
-    {
-        label: 'Delete this project',
-        onClick: () => {
-        },
-        icon: () => h(FeatherIcon, { name: 'trash' }),
+        icon: () => h(FeatherIcon, { name: "log-out" }),
     },
 ]
 </script>

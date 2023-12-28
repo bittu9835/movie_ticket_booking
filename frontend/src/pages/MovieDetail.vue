@@ -7,7 +7,13 @@
                 </router-link>
                 <p class="text-3xl font-bold text-gray-800">{{ movieDoc.title }}</p>
             </div>
-            <Avatar :shape="'circle'" :image="null" :label="session.user" size="lg" class="cursor-pointer"/>
+            <Dropdown :options="options">
+                <Button class="rounded-full w-10 h-10">
+                    <template #icon>
+                        <Avatar :shape="'circle'" :image="null" :label="session.user" size="lg" class="cursor-pointer" />
+                    </template>
+                </Button>
+            </Dropdown>
         </div>
         <div class="flex justify-between mt-10 mb-10">
             <div>
@@ -86,8 +92,8 @@
   
 <script setup>
 // import poster from '@/assets/img/avatar.jpeg';
-import { ref, reactive, computed } from 'vue';
-import { createDocumentResource, createListResource ,Avatar} from 'frappe-ui';
+import { ref, reactive, computed, h } from 'vue';
+import { createDocumentResource, createListResource, Avatar, Dropdown, FeatherIcon } from 'frappe-ui';
 import { session } from '@/data/session'
 import '@fortawesome/fontawesome-free/css/all.css';
 
@@ -97,6 +103,19 @@ const props = defineProps({
         required: true
     }
 })
+let options = [
+    {
+        label: 'Profile',
+        icon: () => h(FeatherIcon, { name: "user" }),
+    },
+    {
+        label: 'Log Out',
+        onClick: () => {
+            session.logout.submit()
+        },
+        icon: () => h(FeatherIcon, { name: "log-out" }),
+    },
+]
 const movieResource = createDocumentResource({
     doctype: 'Movie',
     name: props.movieName,
@@ -130,7 +149,13 @@ const movieBooking = createListResource({
         }
     }
 })
-
+// const abc = createListResource({
+//     doctype: "Movie Theater", 
+//     fields: ['seat_column'],
+//     auto: true,
+// })
+// // const test = computed(() => abc.doc)
+// console.log(abc)
 
 const getSeatStructure = (alphabets, numbers) => {
     const structure = {};
@@ -145,7 +170,7 @@ const getSeatStructure = (alphabets, numbers) => {
 
 const seatStrucure = reactive(getSeatStructure(
     ['A', 'B', 'C', 'D', 'E'],
-    [1, 2, 3, 4, 5, 6, 7]
+    [1, 2, 3, 4, 5, 6, 7,8,9,10]
 ))
 
 const today = new Date().toISOString().substr(0, 10);
